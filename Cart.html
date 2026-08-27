@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart - E-COMMERCE WEBSITE</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-glass shadow-sm py-3 px-md-5 sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="mainpage.html" style="font-size: 28px; color: #2563eb;">E-COMMERCE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto ms-lg-4 fw-bold" style="font-size: 16px;">
+                    <li class="nav-item"><a class="nav-link px-3" href="mainpage.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="fashion.html">Fashion</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="hoodie.html">Hoodie</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="accessories.html">Accessories</a></li>
+                </ul>
+                <ul class="navbar-nav align-items-center mt-3 mt-lg-0">
+                    <li class="nav-item me-3">
+                        <a class="nav-link d-flex flex-column align-items-center" href="login.html">
+                            <i class="fa fa-user fa-lg mb-1" style="color: #2563eb;"></i>
+                            <span style="font-size: 13px; font-weight: bold;">Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link d-flex flex-column align-items-center active" href="Cart.html">
+                            <i class="fa fa-shopping-cart fa-lg mb-1" style="color: #2563eb;"></i>
+                            <span style="font-size: 13px; font-weight: bold;">Cart</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="themeToggle" class="btn btn-outline-secondary rounded-circle ms-2">
+                            <i class="fa fa-moon-o"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 mt-4 flex-grow-1">
+        <h1 class="section_title mb-4">Shopping Cart</h1>
+        
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4 h-100">
+                    <h5 class="fw-bold border-bottom pb-3 mb-3">Items in your cart</h5>
+                    <ul id="cart-items" class="list-group list-group-flush mb-3"></ul>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card border-0 shadow-sm p-4 rounded-4" style="position: sticky; top: 120px;">
+                    <h4 class="fw-bold border-bottom pb-3 mb-3">Order Summary</h4>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Subtotal</span>
+                        <span id="cart-subtotal" class="fw-semibold">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Shipping</span>
+                        <span class="fw-semibold text-success">Free</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-bold fs-5">Total</span>
+                        <strong id="cart-total" class="fs-5" style="color: #2563eb;">$0.00</strong>
+                    </div>
+                    <button id="checkout-btn" class="btn btn-primary w-100 py-3 fw-bold rounded-3" style="background-color: #2563eb;">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light pt-5 pb-4 mt-auto footer-custom">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary">E-Commerce</h5>
+                    <p>Your premium destination for modern fashion, trendy hoodies, and elegant accessories.</p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary">Contact</h5>
+                    <p><i class="fa fa-envelope me-3"></i> info@ecommerce.com</p>
+                    <p><i class="fa fa-phone me-3"></i> +60 11 1100 9026</p>
+                </div>
+            </div>
+            <hr class="mb-4 border-secondary">
+            <div class="text-center">
+                <p>© 2026 All Rights Reserved by <strong class="text-primary">E-Commerce Inc.</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Shopping Cart Logic
+        var cartItems = [];
+        var cartTotal = 0;
+
+        // Simulate item structure: { name: 'Product Name', price: 25.00 }
+        function addToCart(name, price) {
+            cartItems.push({ name: name, price: price });
+            cartTotal += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            var cartItemsElement = document.getElementById('cart-items');
+            cartItemsElement.innerHTML = '';
+
+            if (cartItems.length === 0) {
+                cartItemsElement.innerHTML = '<li class="list-group-item bg-transparent text-muted py-4 text-center">Your cart is currently empty.</li>';
+            } else {
+                for (var i = 0; i < cartItems.length; i++) {
+                    var li = document.createElement('li');
+                    li.className = 'list-group-item bg-transparent d-flex justify-content-between align-items-center py-3 border-bottom';
+                    
+                    li.innerHTML = `
+                        <div class="d-flex align-items-center">
+                            <div class="bg-light rounded p-2 me-3 text-center" style="width: 50px; height: 50px;">
+                                <i class="fa fa-shopping-bag text-secondary mt-1 fa-lg"></i>
+                            </div>
+                            <span class="fw-semibold">${cartItems[i].name}</span>
+                        </div>
+                        <span class="fw-bold">$${cartItems[i].price.toFixed(2)}</span>
+                    `;
+                    cartItemsElement.appendChild(li);
+                }
+            }
+
+            document.getElementById('cart-subtotal').textContent = '$' + cartTotal.toFixed(2);
+            document.getElementById('cart-total').textContent = '$' + cartTotal.toFixed(2);
+        }
+
+        function checkout() {
+            if(cartTotal === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert('Checkout process initiated. Total amount: $' + cartTotal.toFixed(2));
+            }
+        }
+
+        document.getElementById('checkout-btn').addEventListener('click', checkout);
+
+        // Example Usage (Mock Data)
+        addToCart('UNISEX T-SHIRT', 25.00);
+        addToCart('SPORT HOODIE', 55.00);
+        addToCart('HANDBAG', 85.00);
+
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon-o', 'fa-sun-o');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon-o', 'fa-sun-o');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun-o', 'fa-moon-o');
+            }
+        });
+    </script>
+</body>
+</html>
